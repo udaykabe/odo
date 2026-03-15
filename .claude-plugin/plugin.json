@@ -1,11 +1,11 @@
 {
-  "name": "gti",
+  "name": "aida",
   "version": "1.0.0",
-  "description": "Get To It - Agentic framework for autonomous project execution with human-in-the-loop checkpoints. Coordinates specialized sub-agents through a research-plan-execute-review pipeline.",
+  "description": "AI Development Agents (AIDA) - Agentic framework for autonomous project execution with human-in-the-loop checkpoints. Coordinates specialized sub-agents through a research-plan-execute-review pipeline.",
   "author": {
-    "name": "uday"
+    "name": "Uday Kabe"
   },
-  "repository": "https://github.com/uday/odo",
+  "repository": "https://github.com/udaykabe/aida",
   "license": "MIT",
   "keywords": ["orchestrator", "planning", "execution", "agents", "workflow"]
 }
