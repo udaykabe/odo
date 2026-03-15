@@ -216,7 +216,7 @@ my-project/
 
 **New Workflow:**
 - Implementation: `skills/workflows/{name}.md`
-- Usage: Reference from command with `@./.claude/skills/workflows/{name}.md`
+- Usage: Reference from command with `@./skills/workflows/{name}.md`
 
 **New Reference Document:**
 - Implementation: `skills/references/{name}.md`
@@ -229,12 +229,12 @@ my-project/
 ## Special Directories
 
 **skills/**
-- Purpose: Resources installed to ./.claude/skills/
+- Purpose: Resources installed to ./skills/
 - Source: Copied by bin/install.js during installation
 - Committed: Yes (source of truth)
 
 **commands/**
-- Purpose: Slash commands installed to ./.claude/commands/
+- Purpose: Slash commands installed to ./commands/
 - Source: Copied by bin/install.js during installation
 - Committed: Yes (source of truth)
 

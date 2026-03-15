@@ -117,7 +117,7 @@ If parallelization applies, add after Segment Breakdown:
 - Segment 4 depends on: 2, 3
 ```
 
-See: `.claude/skills/orchestrating-agents/reference/segment-dependencies.md`
+See: `skills/orchestrating-agents/reference/segment-dependencies.md`
 
 ## Constraints
 

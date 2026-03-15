@@ -46,11 +46,11 @@ Check for .planning/STATE.md - loads context if project already initialized
 
 <process>
 This command delegates to the mapping-codebase SKILL.
-Follow the process defined in `.claude/skills/mapping-codebase/SKILL.md`.
+Follow the process defined in `skills/mapping-codebase/SKILL.md`.
 </process>
 
 <success_criteria>
-See `.claude/skills/mapping-codebase/SKILL.md` for detailed success criteria.
+See `skills/mapping-codebase/SKILL.md` for detailed success criteria.
 - [ ] .planning/codebase/ directory created with all 7 documents
 - [ ] Documents follow SKILL template structure
 - [ ] User knows next steps

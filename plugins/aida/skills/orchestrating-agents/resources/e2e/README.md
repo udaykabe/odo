@@ -41,9 +41,9 @@ Playwright `globalSetup` script for smoke test projects. Verifies the backend is
 
 Copy these files to your project's e2e directory:
 ```bash
-cp -r .claude/skills/orchestrating-agents/resources/e2e/helpers/ <project-e2e-dir>/helpers/
-cp -r .claude/skills/orchestrating-agents/resources/e2e/fixtures/ <project-e2e-dir>/fixtures/
-cp .claude/skills/orchestrating-agents/resources/e2e/smoke-setup.ts <project-e2e-dir>/smoke-setup.ts
+cp -r skills/orchestrating-agents/resources/e2e/helpers/ <project-e2e-dir>/helpers/
+cp -r skills/orchestrating-agents/resources/e2e/fixtures/ <project-e2e-dir>/fixtures/
+cp skills/orchestrating-agents/resources/e2e/smoke-setup.ts <project-e2e-dir>/smoke-setup.ts
 ```
 
 ### 2. Update Test Imports

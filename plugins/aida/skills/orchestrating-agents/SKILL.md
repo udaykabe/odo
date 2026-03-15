@@ -221,7 +221,7 @@ See `reference/workflow-principles.md` for battle-tested principles from real pr
 
 ## Resources
 
-GTI provides reusable resources in `.claude/skills/orchestrating-agents/resources/`:
+GTI provides reusable resources in `skills/orchestrating-agents/resources/`:
 
 | Resource | Purpose |
 |----------|---------|
