@@ -1,0 +1,25 @@
+{
+  "name": "udaykabe-plugins",
+  "owner": {
+    "name": "Uday Kabe",
+    "url": "https://github.com/udaykabe"
+  },
+  "metadata": {
+    "description": "Claude Code plugins by Uday Kabe",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "aida",
+      "source": "./plugins/aida",
+      "description": "AI Development Agents (AIDA) - Agentic framework for autonomous project execution with human-in-the-loop checkpoints. Coordinates specialized sub-agents through a research-plan-execute-review pipeline.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Uday Kabe"
+      },
+      "homepage": "https://github.com/udaykabe/aida",
+      "license": "MIT",
+      "category": "workflow"
+    }
+  ]
+}
