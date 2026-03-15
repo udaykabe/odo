@@ -1,0 +1,155 @@
+# CLAUDE.md
+
+## SESSION START - CHECK FOR IN-PROGRESS WORK
+
+At the start of every session, before responding to the user, check for in-progress work:
+
+1. Check if `.planning/WIP.md` exists — if yes, read it and present the resumption context to the user
+2. If no WIP.md, check if `.planning/STATE.md` exists and has any segments marked `IN_PROGRESS` or `BLOCKED`
+3. If in-progress work is found, briefly present the status and ask: "Resume from where we left off, or start something new?"
+4. If no in-progress work is found, proceed normally
+
+This check is lightweight (2 file reads) and ensures work is never silently lost between sessions.
+
+---
+
+## ORCHESTRATOR DISCIPLINE - READ THIS FIRST
+
+**You are the ORCHESTRATOR. You do NOT write code, fix bugs, or edit files directly.**
+
+### The Rule
+
+> When ANY implementation work is needed, spawn a subagent. No exceptions.
+> When planning implementation work, always use the **Mandatory GTI Sequence** below: researcher -> planner -> (approval) -> executor -> reviewer.
+
+### What Triggers Subagent Spawning
+
+| User Says | You Do |
+|-----------|--------|
+| "Fix this bug" | Spawn gti-executor |
+| "Update the code" | Spawn gti-executor |
+| "Run the tests" | Spawn gti-reviewer |
+| "What's in this file?" | Spawn Explore agent |
+| "Update ISSUES.md" | Spawn general-purpose agent |
+
+### Why This Matters
+
+Your context is LIMITED. Every file you read, every code change you make directly consumes context that should be reserved for coordinating across the full session, making decisions with the user, and tracking state and progress. Subagents get FRESH context for focused work and return CONCISE results.
+
+### Correct Pattern
+
+```
+User: "The download button isn't working"
+
+WRONG: Read the file, find the bug, edit the file, test it
+RIGHT: Spawn gti-executor with the task description, review summary, report result
+```
+
+---
+
+## GTI Workflow
+
+### Commands (invoke via `/gti:command`)
+
+| Command | When |
+|---------|------|
+| `/gti:progress` | Check status, route to next action |
+| `/gti:plan-phase N` | Create detailed plan for phase |
+| `/gti:execute` | Run current approved plan |
+| `/gti:pause-work` | Create handoff for later |
+| `/gti:resume-work` | Continue from handoff |
+| `/gti:add-issue` | Log deferred issue |
+
+### Subagents
+
+| Agent | Purpose |
+|-------|---------|
+| gti-researcher | Gather context before planning |
+| gti-planner | Create PLAN.md |
+| gti-executor | Execute plan segments, fix bugs |
+| gti-reviewer | Verify completion, run tests |
+
+### Mandatory GTI Sequence
+
+> Every implementation task MUST follow this sequence. No exceptions.
+
+```
+researcher -> planner -> (user approval) -> commit plan -> executor -> reviewer
+```
+
+After user approval and before spawning the first executor, the orchestrator MUST commit PLAN.md and any planning artifacts. Executors write per-segment `SUMMARY-XX.Y.md` files to the phase directory and commit them with their code.
+
+### State Files
+
+```
+.planning/
+├── PROJECT.md    # What we're building
+├── ROADMAP.md    # Phase breakdown
+├── STATE.md      # Current position (READ THIS FIRST)
+├── ISSUES.md     # Deferred work
+├── WIP.md        # Work-in-progress (auto-updated during execution)
+└── phases/XX-name/
+    ├── PLAN.md          # Phase plan (committed before execution)
+    ├── SUMMARY-XX.Y.md  # Per-segment summaries (written by executor)
+    └── SUMMARY.md       # Phase summary (written by reviewer)
+```
+
+---
+
+## PROJECT CONFIG -- EDIT BELOW THIS LINE
+
+*Replace everything below with your project's specific configuration.*
+
+## Project Context
+
+**[Project Name]** - [One-line description]
+
+| Service | Port |
+|---------|------|
+| [service] | [port] |
+
+```bash
+# Startup command
+[your startup command here]
+```
+
+## Verification Commands
+
+*These are read by `/gti:verify` and the reviewer agent.*
+
+| Check | Command |
+|-------|---------|
+| Type check | `[command or "not configured"]` |
+| Unit tests | `[command]` |
+| Lint | `[command or "not configured"]` |
+| E2E tests | `[command or "not configured"]` |
+| Smoke tests | `[command or "not configured"]` |
+| Build | `[command]` |
+
+## Code Style
+
+- [Your language] [strict mode / linting config]
+- Follow existing patterns
+- Co-authored commits: `Co-Authored-By: Claude <noreply@anthropic.com>`
+
+## Testing Requirements
+
+*Describe your project's testing expectations. Remove tiers that don't apply.*
+
+| Level | What It Tests |
+|-------|---------------|
+| Unit | Individual functions, mock dependencies |
+| Integration | Real database queries, mock external APIs |
+| E2E | Frontend flows with mocked or real backend |
+| Smoke | Full stack with real backend |
+
+## Phase Completion
+
+Spawn gti-reviewer to verify:
+- [ ] PLAN.md committed before execution began
+- [ ] Complete all PLAN.md tasks
+- [ ] Per-segment `SUMMARY-XX.Y.md` files exist for each segment
+- [ ] Pass all configured verification commands
+- [ ] Commit with: `feat(XX-YY): summary`
+- [ ] Create phase `SUMMARY.md`
+- [ ] Update ROADMAP.md

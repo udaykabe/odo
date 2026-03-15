@@ -1,0 +1,9 @@
+{
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "0"
+  },
+  "enabledPlugins": {
+    "ui-designer@awesome-claude-code-plugins": true,
+    "ux-researcher@awesome-claude-code-plugins": true
+  }
+}
