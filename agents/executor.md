@@ -1,5 +1,5 @@
 ---
-name: gti-executor
+name: executor
 description: Executes plan segments autonomously. Handles coding, testing, and documentation tasks. Returns to orchestrator at checkpoints.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep
 color: purple

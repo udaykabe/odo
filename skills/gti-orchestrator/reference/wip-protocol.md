@@ -26,7 +26,7 @@ GTI state files (STATE.md, SUMMARY.md) are only updated at segment completion bo
 - **Phase**: XX -- [phase name]
 - **Segment**: XX.N -- [segment name]
 - **Branch**: feature/phase-XX-name
-- **Agent**: [gti-executor | gti-researcher | gti-planner | gti-reviewer | none]
+- **Agent**: [executor | researcher | planner | reviewer | none]
 - **Status**: [executing | waiting-for-approval | between-segments]
 
 ## Task Progress
@@ -40,13 +40,13 @@ GTI state files (STATE.md, SUMMARY.md) are only updated at segment completion bo
 
 ## Orchestrator Decisions
 
-- Spawned gti-researcher for Phase XX context gathering
+- Spawned researcher for Phase XX context gathering
 - Research complete: [key findings summary]
-- Spawned gti-planner: plan created at .planning/phases/XX-name/PLAN.md
+- Spawned planner: plan created at .planning/phases/XX-name/PLAN.md
 - User approved plan
-- Executing segment XX.1: spawned gti-executor for tasks 1-4
+- Executing segment XX.1: spawned executor for tasks 1-4
 - Segment XX.1 complete: [summary]
-- Executing segment XX.2: spawned gti-executor for tasks 5-7
+- Executing segment XX.2: spawned executor for tasks 5-7
 
 ## Last Agent Result
 

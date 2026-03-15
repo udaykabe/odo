@@ -1,0 +1,11 @@
+{
+  "name": "gti",
+  "version": "1.0.0",
+  "description": "Get To It - Agentic framework for autonomous project execution with human-in-the-loop checkpoints. Coordinates specialized sub-agents through a research-plan-execute-review pipeline.",
+  "author": {
+    "name": "uday"
+  },
+  "repository": "https://github.com/uday/odo",
+  "license": "MIT",
+  "keywords": ["orchestrator", "planning", "execution", "agents", "workflow"]
+}

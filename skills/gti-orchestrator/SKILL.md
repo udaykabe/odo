@@ -28,23 +28,23 @@ Spawn via Task tool with dedicated subagent types:
 
 | Agent | subagent_type | When | Purpose |
 |-------|---------------|------|---------|
-| gti-researcher | `gti-researcher` | Before planning | Gather context |
-| gti-planner | `gti-planner` | After research | Create PLAN.md |
-| gti-executor | `gti-executor` | After plan approved | Execute segments |
-| gti-reviewer | `gti-reviewer` | After execution | Verify completion |
+| researcher | `researcher` | Before planning | Gather context |
+| planner | `planner` | After research | Create PLAN.md |
+| executor | `executor` | After plan approved | Execute segments |
+| reviewer | `reviewer` | After execution | Verify completion |
 
 ### Spawning Pattern
 
 ```markdown
 Task(
-  subagent_type="gti-researcher",
+  subagent_type="researcher",
   prompt="[your task]"
 )
 ```
 
 ### Example Prompts
 
-**gti-researcher:**
+**researcher:**
 ```
 Research phase 3 requirements. Context:
 - PROJECT.md: [summary]
@@ -53,7 +53,7 @@ Research phase 3 requirements. Context:
 Return findings for planning.
 ```
 
-**gti-planner:**
+**planner:**
 ```
 Create PLAN.md for phase 3. Context:
 - Research findings: [summary from researcher]
@@ -62,14 +62,14 @@ Create PLAN.md for phase 3. Context:
 Write plan to 03-01-PLAN.md.
 ```
 
-**gti-executor:**
+**executor:**
 ```
 Execute segment 1 (tasks 1-4) of .planning/phases/03-feature-name/03-01-PLAN.md.
 
 Stop at checkpoints and return status.
 ```
 
-**gti-reviewer:**
+**reviewer:**
 ```
 Review phase 03-01 completion:
 - PLAN.md: .planning/phases/03-feature-name/03-01-PLAN.md
@@ -85,10 +85,10 @@ Return APPROVE, NEEDS_WORK, or BLOCKED.
 2. Determine next action:
    - No project? → Initialize
    - No roadmap? → Create roadmap
-   - Phase needs research? → Spawn gti-researcher
-   - Phase needs plan? → Spawn gti-planner
-   - Plan ready? → Get approval, spawn gti-executor
-   - Execution done? → Spawn gti-reviewer
+   - Phase needs research? → Spawn researcher
+   - Phase needs plan? → Spawn planner
+   - Plan ready? → Get approval, spawn executor
+   - Execution done? → Spawn reviewer
    - Review passed? → Update STATE, next phase
 ```
 
@@ -125,7 +125,7 @@ When a plan declares segment dependencies (see `reference/segment-dependencies.m
 ### How to Execute in Parallel
 
 1. Check the plan's **Segment Dependencies** section to identify independent segments
-2. Spawn multiple gti-executor agents using `run_in_background=true` for each independent segment
+2. Spawn multiple executor agents using `run_in_background=true` for each independent segment
 3. Wait for all parallel agents to complete before spawning segments that depend on them
 
 ### Rules
@@ -166,22 +166,22 @@ When spawning agents, provide relevant context from reference materials rather t
 
 ### What to inject per agent type
 
-**gti-executor** -- When the task involves:
+**executor** -- When the task involves:
 - Database queries: Include relevant pitfall guidance from `reference/pitfalls/`
 - E2E test setup: Reference `resources/e2e/` and provide copy instructions
 - UI/frontend work: Include `reference/pitfalls/ux-design.md` and `reference/pitfalls/ui-implementation.md`
 - Technology-specific work: Summarize relevant patterns from `reference/pitfalls/<tech>.md`
 
-**gti-researcher** -- When exploring:
+**researcher** -- When exploring:
 - Include known architectural constraints from PROJECT.md
 - Specify which directories/patterns to prioritize
 - For UX/UI tasks: Include `reference/pitfalls/ux-design.md` so research covers accessibility, states, and interaction patterns
 
-**gti-planner** -- When creating plans:
+**planner** -- When creating plans:
 - Include relevant findings from researcher
 - Note any technology-specific pitfalls that affect the design
 
-**gti-reviewer** -- When verifying:
+**reviewer** -- When verifying:
 - Include project-specific verification commands from PROJECT.md
 - Note which test tiers are configured for this project
 

@@ -25,11 +25,11 @@ Check current project status and determine next action.
    |-------|-------------|
    | No project | Suggest `/gti:new-project` |
    | No roadmap | Suggest creating roadmap |
-   | Phase needs research | Spawn `gti-researcher` |
-   | Phase needs plan | Spawn `gti-planner` |
+   | Phase needs research | Spawn `researcher` |
+   | Phase needs plan | Spawn `planner` |
    | Plan ready, not approved | Ask user to review |
-   | Plan approved | Spawn `gti-executor` |
-   | Execution done | Spawn `gti-reviewer` |
+   | Plan approved | Spawn `executor` |
+   | Execution done | Spawn `reviewer` |
    | Review passed | Update STATE, next phase |
    | Blocked | Present blocker, get guidance |
 

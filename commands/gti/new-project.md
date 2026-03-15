@@ -27,7 +27,7 @@ Initialize a new project with GTI workflow.
    - Key constraints (timeline, tech, etc.)
 
 4. **For brownfield projects**
-   - Spawn `gti-researcher` to map existing codebase
+   - Spawn `researcher` to map existing codebase
    - Create `.planning/codebase/` analysis docs
 
 5. **Create planning structure**

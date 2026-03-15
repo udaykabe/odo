@@ -35,7 +35,7 @@ Execute the currently approved plan using sub-agents.
 
    **Sequential mode (no dependencies section):**
    For each segment:
-   - Spawn `gti-executor` with segment tasks
+   - Spawn `executor` with segment tasks
    - Wait for completion or checkpoint
    - Handle checkpoint in main context
    - Continue to next segment
@@ -63,7 +63,7 @@ Execute the currently approved plan using sub-agents.
    - If NEEDS_DECISION → Present to user
 
 7. **After all segments**
-   - Spawn `gti-reviewer` for verification
+   - Spawn `reviewer` for verification
    - If review passes → Create SUMMARY.md
    - If review fails → Present issues, decide fix
 

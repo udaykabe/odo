@@ -1,5 +1,5 @@
 ---
-name: gti-planner
+name: planner
 description: Creates detailed phase execution plans (PLAN.md) from research findings. Produces structured, executable task lists with checkpoints.
 allowed-tools: Read, Write, Glob, Grep
 color: green
@@ -12,7 +12,7 @@ color: green
 You receive:
 - `PROJECT.md` - What we're building
 - `ROADMAP.md` - Phase breakdown
-- Research findings from gti-researcher
+- Research findings from researcher
 - Phase number to plan
 
 ## Output

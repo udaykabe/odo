@@ -26,9 +26,9 @@ This check is lightweight (2 file reads) and ensures work is never silently lost
 
 | User Says | You Do |
 |-----------|--------|
-| "Fix this bug" | Spawn gti-executor |
-| "Update the code" | Spawn gti-executor |
-| "Run the tests" | Spawn gti-reviewer |
+| "Fix this bug" | Spawn executor |
+| "Update the code" | Spawn executor |
+| "Run the tests" | Spawn reviewer |
 | "What's in this file?" | Spawn Explore agent |
 | "Update ISSUES.md" | Spawn general-purpose agent |
 
@@ -42,7 +42,7 @@ Your context is LIMITED. Every file you read, every code change you make directl
 User: "The download button isn't working"
 
 WRONG: Read the file, find the bug, edit the file, test it
-RIGHT: Spawn gti-executor with the task description, review summary, report result
+RIGHT: Spawn executor with the task description, review summary, report result
 ```
 
 ---
@@ -64,10 +64,10 @@ RIGHT: Spawn gti-executor with the task description, review summary, report resu
 
 | Agent | Purpose |
 |-------|---------|
-| gti-researcher | Gather context before planning |
-| gti-planner | Create PLAN.md |
-| gti-executor | Execute plan segments, fix bugs |
-| gti-reviewer | Verify completion, run tests |
+| researcher | Gather context before planning |
+| planner | Create PLAN.md |
+| executor | Execute plan segments, fix bugs |
+| reviewer | Verify completion, run tests |
 
 ### Mandatory GTI Sequence
 
@@ -145,7 +145,7 @@ After user approval and before spawning the first executor, the orchestrator MUS
 
 ## Phase Completion
 
-Spawn gti-reviewer to verify:
+Spawn reviewer to verify:
 - [ ] PLAN.md committed before execution began
 - [ ] Complete all PLAN.md tasks
 - [ ] Per-segment `SUMMARY-XX.Y.md` files exist for each segment

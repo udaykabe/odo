@@ -15,7 +15,7 @@ Create a roadmap breaking the project into phases.
    - `.planning/codebase/` - If brownfield, existing structure
 
 2. **Analyze scope**
-   - Spawn `gti-researcher` if needed for technical discovery
+   - Spawn `researcher` if needed for technical discovery
    - Identify major work areas
 
 3. **Propose phases**

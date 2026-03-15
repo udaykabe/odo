@@ -19,7 +19,7 @@ Spawn researcher agent to gather context.
    - If phase number: Read ROADMAP.md for phase description
    - If topic: Use provided question
 
-2. **Spawn gti-researcher**
+2. **Spawn researcher**
    - Pass PROJECT.md context
    - Pass specific research question
    - Let agent explore codebase and web

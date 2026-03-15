@@ -1,5 +1,5 @@
 ---
-name: gti-reviewer
+name: reviewer
 description: Verifies phase completion quality. Runs tests, checks requirements, validates outputs against plan.
 allowed-tools: Read, Bash, Glob, Grep
 color: yellow

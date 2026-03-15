@@ -21,12 +21,12 @@ Create a detailed PLAN.md for the specified phase.
    - Previous phase summaries if applicable
 
 2. **Research phase requirements**
-   - Spawn `gti-researcher` with phase scope
+   - Spawn `researcher` with phase scope
    - Gather technical requirements
    - Identify files to modify
 
 3. **Spawn planner agent**
-   - Use `gti-planner` with research findings
+   - Use `planner` with research findings
    - Create structured PLAN.md
 
 4. **Review plan with user**

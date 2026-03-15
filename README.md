@@ -1,48 +1,69 @@
 # GTI -- Get To It
 
-An agentic framework for autonomous project execution with human-in-the-loop checkpoints. The orchestrator coordinates specialized sub-agents through a research-plan-execute-review pipeline, keeping each agent focused and context-efficient.
+A Claude Code plugin for autonomous project execution with human-in-the-loop checkpoints. The orchestrator coordinates specialized sub-agents through a research-plan-execute-review pipeline, keeping each agent focused and context-efficient.
 
 GTI is project-agnostic and technology-agnostic. It ships generic workflow patterns; technology-specific guidance lives in opt-in reference files.
 
-## Directory Structure
+## Installation
 
-```
-CLAUDE.md                            # Project root -- orchestrator discipline + project config
+### From local directory (development)
 
-.claude/
-  CLAUDE.md.template                 # Template -- copy to project root as CLAUDE.md
-  README.md                          # This file
-  agents/
-    gti-researcher.md                # Context gathering before planning
-    gti-planner.md                   # Structured plan creation
-    gti-executor.md                  # Code implementation
-    gti-reviewer.md                  # Verification and quality checks
-  commands/gti/
-    progress.md                      # Check status, route to next action
-    new-project.md                   # Initialize planning structure
-    map-codebase.md                  # Parallel codebase analysis
-    create-roadmap.md                # Create phased roadmap
-    research.md                      # Research a topic or phase
-    plan-phase.md                    # Create execution plan for a phase
-    execute.md                       # Run the current approved plan
-    verify.md                        # Run full verification suite
-    pause-work.md                    # Create handoff for session breaks
-    resume-work.md                   # Restore context from previous session
-    add-issue.md                     # Log deferred issues
-    review-issues.md                 # Triage deferred issues
-    metrics.md                       # View project metrics
-  skills/
-    gti-orchestrator/
-      SKILL.md                       # Core orchestrator process definition
-      reference/                     # Injected context (see Reference Materials)
-      resources/                     # Reusable project resources (e.g., E2E fixtures)
-      templates/                     # Templates for plans, summaries, roadmaps
-    mapping-codebase/
-      SKILL.md                       # Parallel codebase analysis skill
-      templates/                     # Templates for 7 codebase documents
+```bash
+claude --plugin-dir /path/to/odo
 ```
 
-The `.planning/` directory is created per-project at runtime (not shipped with the framework):
+### From marketplace
+
+```bash
+# Install for current user (all projects)
+claude plugin install gti@<marketplace>
+
+# Install for current project (shared with team)
+claude plugin install gti@<marketplace> --scope project
+```
+
+### Post-install setup
+
+Copy `CLAUDE.md.template` to your project root as `CLAUDE.md` and fill in the project-specific sections below the `PROJECT CONFIG` marker. This configures the orchestrator with your project's services, verification commands, and coding conventions.
+
+## Plugin Structure
+
+```
+.claude-plugin/
+  plugin.json                          # Plugin manifest
+agents/
+  researcher.md                    # Context gathering before planning
+  planner.md                       # Structured plan creation
+  executor.md                      # Code implementation
+  reviewer.md                      # Verification and quality checks
+commands/gti/
+  progress.md                          # Check status, route to next action
+  new-project.md                       # Initialize planning structure
+  map-codebase.md                      # Parallel codebase analysis
+  create-roadmap.md                    # Create phased roadmap
+  research.md                          # Research a topic or phase
+  plan-phase.md                        # Create execution plan for a phase
+  execute.md                           # Run the current approved plan
+  verify.md                            # Run full verification suite
+  pause-work.md                        # Create handoff for session breaks
+  resume-work.md                       # Restore context from previous session
+  add-issue.md                         # Log deferred issues
+  review-issues.md                     # Triage deferred issues
+  metrics.md                           # View project metrics
+skills/
+  gti-orchestrator/
+    SKILL.md                           # Core orchestrator process definition
+    reference/                         # Injected context (see Reference Materials)
+    resources/                         # Reusable project resources (e.g., E2E fixtures)
+    templates/                         # Templates for plans, summaries, roadmaps
+  mapping-codebase/
+    SKILL.md                           # Parallel codebase analysis skill
+    templates/                         # Templates for 7 codebase documents
+settings.json                          # Plugin settings
+CLAUDE.md.template                     # Template for project-level CLAUDE.md
+```
+
+The `.planning/` directory is created per-project at runtime (not shipped with the plugin):
 
 ```
 .planning/
@@ -108,8 +129,8 @@ The framework maintains `.planning/WIP.md` during active execution, capturing ta
 
 ### Brownfield (existing codebase)
 
-1. Copy the `.claude/` directory into the project root
-2. Copy `.claude/CLAUDE.md.template` to your project root as `CLAUDE.md`. Fill in the project-specific sections below the `PROJECT CONFIG` marker.
+1. Install the plugin (see Installation above)
+2. Copy `CLAUDE.md.template` to your project root as `CLAUDE.md`. Fill in the project-specific sections below the `PROJECT CONFIG` marker.
 3. Run `/gti:map-codebase` to analyze the existing codebase and generate `.planning/codebase/` documents
 4. Run `/gti:new-project` to create PROJECT.md and initialize the planning structure
 5. Run `/gti:create-roadmap` to define phases
@@ -117,8 +138,8 @@ The framework maintains `.planning/WIP.md` during active execution, capturing ta
 
 ### Greenfield (new project)
 
-1. Copy the `.claude/` directory into the project root
-2. Copy `.claude/CLAUDE.md.template` to your project root as `CLAUDE.md`. Fill in the project-specific sections below the `PROJECT CONFIG` marker.
+1. Install the plugin (see Installation above)
+2. Copy `CLAUDE.md.template` to your project root as `CLAUDE.md`. Fill in the project-specific sections below the `PROJECT CONFIG` marker.
 3. Run `/gti:new-project` to create PROJECT.md and initialize the planning structure
 4. Run `/gti:create-roadmap` to define phases
 5. Run `/gti:progress` to begin the first phase
@@ -156,10 +177,10 @@ All commands are invoked as `/gti:<command>`.
 
 | Agent | Purpose | Allowed Tools |
 |-------|---------|---------------|
-| `gti-researcher` | Gather context, find relevant files, identify existing patterns | Read, Glob, Grep, WebSearch, WebFetch |
-| `gti-planner` | Create structured PLAN.md with tasks, segments, and checkpoints | Read, Write, Glob, Grep |
-| `gti-executor` | Implement plan segments, write code and tests, commit work | Read, Write, Edit, Bash, Glob, Grep |
-| `gti-reviewer` | Verify completion, run tests, validate against plan requirements | Read, Bash, Glob, Grep |
+| `researcher` | Gather context, find relevant files, identify existing patterns | Read, Glob, Grep, WebSearch, WebFetch |
+| `planner` | Create structured PLAN.md with tasks, segments, and checkpoints | Read, Write, Glob, Grep |
+| `executor` | Implement plan segments, write code and tests, commit work | Read, Write, Edit, Bash, Glob, Grep |
+| `reviewer` | Verify completion, run tests, validate against plan requirements | Read, Bash, Glob, Grep |
 
 ## Reference Materials
 

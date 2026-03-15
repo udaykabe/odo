@@ -1,5 +1,5 @@
 ---
-name: gti-researcher
+name: researcher
 description: Explores codebase to gather context for phase planning. Use for understanding existing patterns, finding relevant files, and researching implementation approaches.
 allowed-tools: [Read, Glob, Grep, WebSearch, WebFetch]
 color: blue
