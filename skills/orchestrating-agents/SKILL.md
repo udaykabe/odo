@@ -1,5 +1,5 @@
 ---
-name: gti-orchestrator
+name: orchestrating-agents
 description: Project planning and execution workflow. Use when user mentions phases, roadmaps, milestones, planning, project management, or wants to execute work systematically. Coordinates research, planning, execution, and review sub-agents.
 ---
 
@@ -221,7 +221,7 @@ See `reference/workflow-principles.md` for battle-tested principles from real pr
 
 ## Resources
 
-GTI provides reusable resources in `.claude/skills/gti-orchestrator/resources/`:
+GTI provides reusable resources in `.claude/skills/orchestrating-agents/resources/`:
 
 | Resource | Purpose |
 |----------|---------|

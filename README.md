@@ -51,7 +51,7 @@ commands/gti/
   review-issues.md                     # Triage deferred issues
   metrics.md                           # View project metrics
 skills/
-  gti-orchestrator/
+  orchestrating-agents/
     SKILL.md                           # Core orchestrator process definition
     reference/                         # Injected context (see Reference Materials)
     resources/                         # Reusable project resources (e.g., E2E fixtures)
@@ -170,7 +170,7 @@ All commands are invoked as `/gti:<command>`.
 
 | Skill | Purpose |
 |-------|---------|
-| `gti-orchestrator` | Core workflow: state management, agent coordination, checkpoint handling |
+| `orchestrating-agents` | Core workflow: state management, agent coordination, checkpoint handling |
 | `mapping-codebase` | Spawns 4 parallel agents to produce 7 codebase analysis documents (STACK, ARCHITECTURE, STRUCTURE, CONVENTIONS, TESTING, INTEGRATIONS, CONCERNS) |
 
 ## Agents
@@ -184,7 +184,7 @@ All commands are invoked as `/gti:<command>`.
 
 ## Reference Materials
 
-The `skills/gti-orchestrator/reference/` directory contains guidance that the orchestrator injects into agent prompts when relevant:
+The `skills/orchestrating-agents/reference/` directory contains guidance that the orchestrator injects into agent prompts when relevant:
 
 | File | Content |
 |------|---------|
@@ -207,9 +207,9 @@ The `templates/` directory contains templates for plans, summaries, and roadmaps
 
 ## Customization
 
-**Adding technology-specific pitfalls** -- Create a new file at `skills/gti-orchestrator/reference/pitfalls/<technology>.md`. The orchestrator will inject it when spawning agents that work with that technology.
+**Adding technology-specific pitfalls** -- Create a new file at `skills/orchestrating-agents/reference/pitfalls/<technology>.md`. The orchestrator will inject it when spawning agents that work with that technology.
 
-**Adding templates** -- Place new templates in `skills/gti-orchestrator/templates/` or `skills/mapping-codebase/templates/`. Reference them from the relevant SKILL.md or agent instructions.
+**Adding templates** -- Place new templates in `skills/orchestrating-agents/templates/` or `skills/mapping-codebase/templates/`. Reference them from the relevant SKILL.md or agent instructions.
 
 **Adding commands** -- Create a new `.md` file in `commands/gti/` with YAML frontmatter (name, description, allowed-tools). The command becomes available as `/gti:<name>`.
 
