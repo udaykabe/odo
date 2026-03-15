@@ -112,9 +112,9 @@
     ],
     "workflows": []
   },
-  "dependencies": {
-    "claudeCode": ">=2.0.0"
-  },
+  "dependencies": [
+    { "name": "claudeCode", "version": ">=2.0.0" }
+  ],
   "installation": {
     "postInstall": "echo '\u2705 AIDA plugin installed! 2 skills, 13 commands, 4 agents ready. Restart Claude Code.'"
   },
