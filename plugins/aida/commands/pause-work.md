@@ -4,7 +4,7 @@ description: Create context handoff when pausing work mid-phase
 allowed-tools: Read, Write
 ---
 
-# /gti:pause-work
+# /pause-work
 
 Create a context handoff file for resuming later.
 

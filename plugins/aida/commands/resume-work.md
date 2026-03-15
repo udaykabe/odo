@@ -4,7 +4,7 @@ description: Resume work from previous session with context restoration
 allowed-tools: Read, Bash, Task, AskUserQuestion
 ---
 
-# /gti:resume-work
+# /resume-work
 
 Resume work from a previous session using handoff context and auto-detected git state.
 
@@ -42,7 +42,7 @@ Resume work from a previous session using handoff context and auto-detected git 
    | Source | Priority | What It Tells Us |
    |--------|----------|------------------|
    | WIP.md | 1 (highest) | Exact task-level position, orchestrator decisions, next action |
-   | HANDOFF.md | 2 | Explicit pause context (from /gti:pause-work) |
+   | HANDOFF.md | 2 | Explicit pause context (from /pause-work) |
    | Git log | 3 | Last successfully committed segment |
    | Git status | 4 | Whether work is in progress |
    | STATE.md | 5 | Last recorded segment-level position |
@@ -105,7 +105,7 @@ Resume work from a previous session using handoff context and auto-detected git 
 If no HANDOFF.md exists:
 - Rely on git state + STATE.md
 - Present detected position with lower confidence
-- Suggest `/gti:progress` if detection is inconclusive
+- Suggest `/progress` if detection is inconclusive
 
 ## Output
 

@@ -4,7 +4,7 @@ description: Research a topic or phase before planning
 allowed-tools: Read, Task
 ---
 
-# /gti:research [phase-number|topic]
+# /research [phase-number|topic]
 
 Spawn researcher agent to gather context.
 

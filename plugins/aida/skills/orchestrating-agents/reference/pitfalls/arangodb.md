@@ -1,6 +1,6 @@
 # ArangoDB Pitfalls
 
-Common issues when using ArangoDB in GTI-managed projects.
+Common issues when using ArangoDB in AIDA-managed projects.
 
 ## Document Key to ID Mapping
 

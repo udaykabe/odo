@@ -7,5 +7,121 @@
   },
   "repository": "https://github.com/udaykabe/aida",
   "license": "MIT",
-  "keywords": ["orchestrator", "planning", "execution", "agents", "workflow"]
+  "keywords": ["orchestrator", "planning", "execution", "agents", "workflow"],
+  "contents": {
+    "skills": [
+      {
+        "name": "orchestrating-agents",
+        "path": "skills/orchestrating-agents",
+        "description": "Core workflow for project planning and execution. Coordinates research, planning, execution, and review sub-agents."
+      },
+      {
+        "name": "mapping-codebase",
+        "path": "skills/mapping-codebase",
+        "description": "Parallel codebase analysis skill. Spawns 4 parallel agents to produce 7 structured reference documents."
+      }
+    ],
+    "commands": [
+      {
+        "name": "progress",
+        "path": "commands/progress.md",
+        "description": "Check project status and route to next action"
+      },
+      {
+        "name": "new-project",
+        "path": "commands/new-project.md",
+        "description": "Initialize a new project with PROJECT.md and planning structure"
+      },
+      {
+        "name": "map-codebase",
+        "path": "commands/map-codebase.md",
+        "description": "Analyze codebase with parallel agents, produce 7 reference documents"
+      },
+      {
+        "name": "create-roadmap",
+        "path": "commands/create-roadmap.md",
+        "description": "Create a phased roadmap from PROJECT.md"
+      },
+      {
+        "name": "research",
+        "path": "commands/research.md",
+        "description": "Research a topic or phase before planning"
+      },
+      {
+        "name": "plan-phase",
+        "path": "commands/plan-phase.md",
+        "description": "Create a detailed execution plan for a specific phase"
+      },
+      {
+        "name": "execute",
+        "path": "commands/execute.md",
+        "description": "Execute the current approved plan"
+      },
+      {
+        "name": "verify",
+        "path": "commands/verify.md",
+        "description": "Run full verification suite (type checking, tests, lint)"
+      },
+      {
+        "name": "pause-work",
+        "path": "commands/pause-work.md",
+        "description": "Create a context handoff document for session breaks"
+      },
+      {
+        "name": "resume-work",
+        "path": "commands/resume-work.md",
+        "description": "Restore context and resume from a previous session"
+      },
+      {
+        "name": "add-issue",
+        "path": "commands/add-issue.md",
+        "description": "Log a deferred issue or enhancement to ISSUES.md"
+      },
+      {
+        "name": "review-issues",
+        "path": "commands/review-issues.md",
+        "description": "Triage deferred issues and decide which to address"
+      },
+      {
+        "name": "metrics",
+        "path": "commands/metrics.md",
+        "description": "View and update project execution metrics"
+      }
+    ],
+    "agents": [
+      {
+        "name": "researcher",
+        "path": "agents/researcher.md",
+        "description": "Explores codebase to gather context for phase planning"
+      },
+      {
+        "name": "planner",
+        "path": "agents/planner.md",
+        "description": "Creates detailed phase execution plans from research findings"
+      },
+      {
+        "name": "executor",
+        "path": "agents/executor.md",
+        "description": "Executes plan segments autonomously, handling coding, testing, and documentation"
+      },
+      {
+        "name": "reviewer",
+        "path": "agents/reviewer.md",
+        "description": "Verifies phase completion quality, runs tests, validates outputs against plan"
+      }
+    ],
+    "workflows": []
+  },
+  "dependencies": {
+    "claudeCode": ">=2.0.0"
+  },
+  "installation": {
+    "postInstall": "echo '\u2705 AIDA plugin installed! 2 skills, 13 commands, 4 agents ready. Restart Claude Code.'"
+  },
+  "statistics": {
+    "totalSkills": 2,
+    "totalCommands": 13,
+    "totalAgents": 4,
+    "totalWorkflows": 0
+  }
 }

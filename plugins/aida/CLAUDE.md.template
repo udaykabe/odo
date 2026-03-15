@@ -20,7 +20,7 @@ This check is lightweight (2 file reads) and ensures work is never silently lost
 ### The Rule
 
 > When ANY implementation work is needed, spawn a subagent. No exceptions.
-> When planning implementation work, always use the **Mandatory GTI Sequence** below: researcher -> planner -> (approval) -> executor -> reviewer.
+> When planning implementation work, always use the **Mandatory AIDA Sequence** below: researcher -> planner -> (approval) -> executor -> reviewer.
 
 ### What Triggers Subagent Spawning
 
@@ -47,18 +47,18 @@ RIGHT: Spawn executor with the task description, review summary, report result
 
 ---
 
-## GTI Workflow
+## AIDA Workflow
 
-### Commands (invoke via `/gti:command`)
+### Commands (invoke via `/command`)
 
 | Command | When |
 |---------|------|
-| `/gti:progress` | Check status, route to next action |
-| `/gti:plan-phase N` | Create detailed plan for phase |
-| `/gti:execute` | Run current approved plan |
-| `/gti:pause-work` | Create handoff for later |
-| `/gti:resume-work` | Continue from handoff |
-| `/gti:add-issue` | Log deferred issue |
+| `/progress` | Check status, route to next action |
+| `/plan-phase N` | Create detailed plan for phase |
+| `/execute` | Run current approved plan |
+| `/pause-work` | Create handoff for later |
+| `/resume-work` | Continue from handoff |
+| `/add-issue` | Log deferred issue |
 
 ### Subagents
 
@@ -69,7 +69,7 @@ RIGHT: Spawn executor with the task description, review summary, report result
 | executor | Execute plan segments, fix bugs |
 | reviewer | Verify completion, run tests |
 
-### Mandatory GTI Sequence
+### Mandatory AIDA Sequence
 
 > Every implementation task MUST follow this sequence. No exceptions.
 
@@ -115,7 +115,7 @@ After user approval and before spawning the first executor, the orchestrator MUS
 
 ## Verification Commands
 
-*These are read by `/gti:verify` and the reviewer agent.*
+*These are read by `/verify` and the reviewer agent.*
 
 | Check | Command |
 |-------|---------|

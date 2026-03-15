@@ -1,6 +1,6 @@
 # Playwright & E2E Testing Pitfalls
 
-Common issues when using Playwright and E2E testing in GTI-managed projects.
+Common issues when using Playwright and E2E testing in AIDA-managed projects.
 
 ## Mock Response Structure Mismatch
 

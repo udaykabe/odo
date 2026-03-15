@@ -1,12 +1,12 @@
 ---
 name: new-project
-description: Initialize a new GTI project with PROJECT.md and planning structure
+description: Initialize a new AIDA project with PROJECT.md and planning structure
 allowed-tools: Read, Write, Glob, Task, AskUserQuestion
 ---
 
-# /gti:new-project
+# /new-project
 
-Initialize a new project with GTI workflow.
+Initialize a new project with AIDA workflow.
 
 ## Process
 

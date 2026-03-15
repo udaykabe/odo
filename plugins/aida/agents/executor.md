@@ -5,7 +5,7 @@ allowed-tools: Read, Write, Edit, Bash, Glob, Grep
 color: purple
 ---
 
-# GTI Executor Agent
+# AIDA Executor Agent
 
 ## Input
 
@@ -136,7 +136,7 @@ After completing each task, update `.planning/WIP.md` if it exists:
 
 This enables mid-segment resumption if the session is interrupted. Do not skip this step -- it is the only durable record of task-level progress.
 
-If WIP.md does not exist (e.g., running outside GTI workflow), skip this step.
+If WIP.md does not exist (e.g., running outside AIDA workflow), skip this step.
 
 ## Integration Checklist
 

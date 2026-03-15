@@ -1,10 +1,10 @@
 ---
 name: progress
-description: Check GTI project status and route to next action
+description: Check AIDA project status and route to next action
 allowed-tools: Read, Task, AskUserQuestion
 ---
 
-# /gti:progress
+# /progress
 
 Check current project status and determine next action.
 
@@ -23,7 +23,7 @@ Check current project status and determine next action.
 
    | State | Next Action |
    |-------|-------------|
-   | No project | Suggest `/gti:new-project` |
+   | No project | Suggest `/new-project` |
    | No roadmap | Suggest creating roadmap |
    | Phase needs research | Spawn `researcher` |
    | Phase needs plan | Spawn `planner` |
@@ -35,7 +35,7 @@ Check current project status and determine next action.
 
 4. **Report status**
    ```
-   ## GTI Status
+   ## AIDA Status
 
    **Project**: [name]
    **Current Phase**: XX - [name]

@@ -4,7 +4,7 @@ description: Execute the current approved plan
 allowed-tools: Read, Write, Task, AskUserQuestion
 ---
 
-# /gti:execute
+# /execute
 
 Execute the currently approved plan using sub-agents.
 

@@ -1,4 +1,4 @@
-# GTI E2E Testing Resources
+# AIDA E2E Testing Resources
 
 Reusable E2E testing infrastructure for Playwright projects.
 

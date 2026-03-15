@@ -4,7 +4,7 @@ description: "Run verification suite from PROJECT.md commands. Args: quick | smo
 allowed-tools: Bash, Read, Grep
 ---
 
-# /gti:verify [quick|smoke]
+# /verify [quick|smoke]
 
 Run verification using commands declared in `.planning/PROJECT.md`. Accepts an optional argument to select verification level (default: full).
 
@@ -23,7 +23,7 @@ Run verification using commands declared in `.planning/PROJECT.md`. Accepts an o
 Read `.planning/PROJECT.md` and extract the `## Verification Commands` table. Each row maps a check name to a shell command.
 
 If no `## Verification Commands` section is found:
-- Warn the user: "No verification commands found in PROJECT.md. Run `/gti:new-project` or add a `## Verification Commands` table to `.planning/PROJECT.md` manually."
+- Warn the user: "No verification commands found in PROJECT.md. Run `/new-project` or add a `## Verification Commands` table to `.planning/PROJECT.md` manually."
 - Abort verification.
 
 ### 2. Map commands to levels
@@ -51,7 +51,7 @@ For each command applicable to the selected level:
 ### 4. Report results
 
 ```
-=== GTI VERIFY ([level]) ===
+=== AIDA VERIFY ([level]) ===
 
 --- [Check Name] ---
 [command output]
@@ -75,9 +75,9 @@ OVERALL is PASS only if all executed checks pass. Skipped checks do not cause fa
 
 | Invocation | Level | What Runs |
 |------------|-------|-----------|
-| `/gti:verify` | Full | Type check + lint + unit tests + integration + E2E |
-| `/gti:verify quick` | Quick | Type check + unit tests only |
-| `/gti:verify smoke` | Smoke | Full + smoke tests (real backend required) |
+| `/verify` | Full | Type check + lint + unit tests + integration + E2E |
+| `/verify quick` | Quick | Type check + unit tests only |
+| `/verify smoke` | Smoke | Full + smoke tests (real backend required) |
 
 - **Quick**: Use during development and at mid-segment checkpoints
 - **Full** (default): Use before committing phase work
@@ -87,8 +87,8 @@ OVERALL is PASS only if all executed checks pass. Skipped checks do not cause fa
 
 Before marking a phase complete, verify ALL configured checks pass:
 
-1. `/gti:verify smoke` -- runs all tiers including smoke tests
-2. If smoke tests are not configured, `/gti:verify` (full) is sufficient
+1. `/verify smoke` -- runs all tiers including smoke tests
+2. If smoke tests are not configured, `/verify` (full) is sufficient
 
 **Critical:** Smoke tests, when configured, are BLOCKING. Do not mark phase complete if smoke tests fail.
 

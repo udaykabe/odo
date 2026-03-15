@@ -26,7 +26,7 @@ agents/
   planner.md                           # Structured plan creation
   executor.md                          # Code implementation
   reviewer.md                          # Verification and quality checks
-commands/gti/
+commands/
   progress.md                          # Check status, route to next action
   new-project.md                       # Initialize planning structure
   map-codebase.md                      # Parallel codebase analysis
@@ -113,7 +113,7 @@ The orchestrator does not expect agents to self-discover all relevant guidance. 
 
 ### Session Continuity
 
-The framework maintains `.planning/WIP.md` during active execution, capturing task-level progress and orchestrator decisions in real time. If a session is interrupted (context compaction, usage limits, exit), `/gti:resume-work` reads WIP.md to restore exact position -- including which task within a segment was last completed and what the orchestrator planned to do next. See `reference/wip-protocol.md` for details.
+The framework maintains `.planning/WIP.md` during active execution, capturing task-level progress and orchestrator decisions in real time. If a session is interrupted (context compaction, usage limits, exit), `/resume-work` reads WIP.md to restore exact position -- including which task within a segment was last completed and what the orchestrator planned to do next. See `reference/wip-protocol.md` for details.
 
 ## Quick Start
 
@@ -121,24 +121,24 @@ The framework maintains `.planning/WIP.md` during active execution, capturing ta
 
 1. Install the plugin (see Installation above)
 2. Copy `CLAUDE.md.template` to your project root as `CLAUDE.md`. Fill in the project-specific sections below the `PROJECT CONFIG` marker.
-3. Run `/gti:map-codebase` to analyze the existing codebase and generate `.planning/codebase/` documents
-4. Run `/gti:new-project` to create PROJECT.md and initialize the planning structure
-5. Run `/gti:create-roadmap` to define phases
-6. Run `/gti:progress` to begin the first phase
+3. Run `/map-codebase` to analyze the existing codebase and generate `.planning/codebase/` documents
+4. Run `/new-project` to create PROJECT.md and initialize the planning structure
+5. Run `/create-roadmap` to define phases
+6. Run `/progress` to begin the first phase
 
 ### Greenfield (new project)
 
 1. Install the plugin (see Installation above)
 2. Copy `CLAUDE.md.template` to your project root as `CLAUDE.md`. Fill in the project-specific sections below the `PROJECT CONFIG` marker.
-3. Run `/gti:new-project` to create PROJECT.md and initialize the planning structure
-4. Run `/gti:create-roadmap` to define phases
-5. Run `/gti:progress` to begin the first phase
+3. Run `/new-project` to create PROJECT.md and initialize the planning structure
+4. Run `/create-roadmap` to define phases
+5. Run `/progress` to begin the first phase
 
-*Skip `/gti:map-codebase` for greenfield -- there is nothing to map yet. Run it later after initial code is written.*
+*Skip `/map-codebase` for greenfield -- there is nothing to map yet. Run it later after initial code is written.*
 
 ## Commands Reference
 
-All commands are invoked as `/gti:<command>`.
+All commands are invoked as `/<command>`.
 
 | Command | Description |
 |---------|-------------|
@@ -201,6 +201,6 @@ The `templates/` directory contains templates for plans, summaries, and roadmaps
 
 **Adding templates** -- Place new templates in `skills/orchestrating-agents/templates/` or `skills/mapping-codebase/templates/`. Reference them from the relevant SKILL.md or agent instructions.
 
-**Adding commands** -- Create a new `.md` file in `commands/gti/` with YAML frontmatter (name, description, allowed-tools). The command becomes available as `/gti:<name>`.
+**Adding commands** -- Create a new `.md` file in `commands/` with YAML frontmatter (name, description, allowed-tools). The command becomes available as `/<name>`.
 
-**Project-specific configuration** -- Edit the project-specific sections of `CLAUDE.md` (services, ports, build commands, testing tiers). The orchestrator discipline section and GTI workflow section remain unchanged across projects.
+**Project-specific configuration** -- Edit the project-specific sections of `CLAUDE.md` (services, ports, build commands, testing tiers). The orchestrator discipline section and AIDA workflow section remain unchanged across projects.

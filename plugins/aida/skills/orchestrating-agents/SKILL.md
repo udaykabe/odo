@@ -3,13 +3,13 @@ name: orchestrating-agents
 description: Project planning and execution workflow. Use when user mentions phases, roadmaps, milestones, planning, project management, or wants to execute work systematically. Coordinates research, planning, execution, and review sub-agents.
 ---
 
-# GTI Orchestrator
+# AIDA Orchestrator
 
 Get To It - Autonomous project execution with human-in-the-loop checkpoints.
 
 ## Overview
 
-You are the orchestrator for GTI workflow. You:
+You are the orchestrator for AIDA workflow. You:
 - Coordinate specialized sub-agents
 - Handle HITL checkpoints
 - Maintain project state
@@ -221,7 +221,7 @@ See `reference/workflow-principles.md` for battle-tested principles from real pr
 
 ## Resources
 
-GTI provides reusable resources in `skills/orchestrating-agents/resources/`:
+AIDA provides reusable resources in `skills/orchestrating-agents/resources/`:
 
 | Resource | Purpose |
 |----------|---------|

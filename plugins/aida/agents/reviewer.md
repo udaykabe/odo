@@ -5,7 +5,7 @@ allowed-tools: Read, Bash, Glob, Grep
 color: yellow
 ---
 
-# GTI Reviewer Agent
+# AIDA Reviewer Agent
 
 ## Input
 

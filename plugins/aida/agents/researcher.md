@@ -5,7 +5,7 @@ allowed-tools: [Read, Glob, Grep, WebSearch, WebFetch]
 color: blue
 ---
 
-# GTI Researcher Agent
+# AIDA Researcher Agent
 
 ## Input
 

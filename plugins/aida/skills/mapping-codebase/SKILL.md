@@ -300,14 +300,14 @@ Created .planning/codebase/:
 
 **Initialize project** — use codebase context for planning
 
-`/gti:new-project`
+`/new-project`
 
 <sub>`/clear` first → fresh context window</sub>
 
 ---
 
 **Also available:**
-- Re-run mapping: `/gti:map-codebase`
+- Re-run mapping: `/map-codebase`
 - Edit any document before proceeding
 
 ---
@@ -326,5 +326,5 @@ End workflow.
 - All 7 codebase documents written using template filling
 - Documents follow template structure with actual findings
 - Clear completion summary with line counts
-- User offered clear next steps aligned with GTI workflow
+- User offered clear next steps aligned with AIDA workflow
 </success_criteria>

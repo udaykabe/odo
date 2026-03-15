@@ -26,8 +26,8 @@ Focus area: $ARGUMENTS (optional - directs agents to specific subsystem)
 Check for .planning/STATE.md - loads context if project already initialized
 
 **This command can run:**
-- Before /gti:new-project (brownfield codebases) - creates codebase map first
-- After /gti:new-project (greenfield codebases) - updates codebase map as code evolves
+- Before /new-project (brownfield codebases) - creates codebase map first
+- After /new-project (greenfield codebases) - updates codebase map as code evolves
 - Anytime to refresh codebase understanding
 </context>
 

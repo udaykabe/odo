@@ -5,7 +5,7 @@ allowed-tools: Read, Write, Glob, Grep
 color: green
 ---
 
-# GTI Planner Agent
+# AIDA Planner Agent
 
 ## Input
 

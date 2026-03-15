@@ -126,7 +126,6 @@ Template for `.planning/codebase/STRUCTURE.md` - captures physical file organiza
 my-project/
 ├── bin/                # Executable entry points
 ├── commands/           # Slash command definitions
-│   └── gti/           # GTI-specific commands
 ├── skills/            # Skill resources
 │   ├── references/    # Principle documents
 │   ├── templates/     # File templates
@@ -145,7 +144,7 @@ my-project/
 - Key files: install.js - handles npx installation
 - Subdirectories: None
 
-**commands/gti/**
+**commands/**
 - Purpose: Slash command definitions for Claude Code
 - Contains: *.md files (one per command)
 - Key files: new-project.md, plan-phase.md, execute-plan.md
@@ -206,7 +205,7 @@ my-project/
 ## Where to Add New Code
 
 **New Slash Command:**
-- Primary code: `commands/gti/{command-name}.md`
+- Primary code: `commands/{command-name}.md`
 - Tests: `tests/commands/{command-name}.test.js` (if testing implemented)
 - Documentation: Update `README.md` with new command
 

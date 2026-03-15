@@ -4,7 +4,7 @@ description: Log a deferred issue or enhancement to ISSUES.md
 allowed-tools: Read, Write
 ---
 
-# /gti:add-issue [description]
+# /add-issue [description]
 
 Log an issue for future consideration.
 

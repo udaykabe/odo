@@ -1,6 +1,6 @@
 # Express.js Pitfalls
 
-Common issues when using Express.js in GTI-managed projects.
+Common issues when using Express.js in AIDA-managed projects.
 
 ## Query Parameter Type Ambiguity
 

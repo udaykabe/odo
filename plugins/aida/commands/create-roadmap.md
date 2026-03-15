@@ -4,7 +4,7 @@ description: Create project roadmap with phases
 allowed-tools: Read, Write, Task, AskUserQuestion
 ---
 
-# /gti:create-roadmap
+# /create-roadmap
 
 Create a roadmap breaking the project into phases.
 
@@ -48,4 +48,4 @@ Create a roadmap breaking the project into phases.
 
 ## Output
 
-Created roadmap with phase breakdown. Suggest `/gti:plan-phase 1` as next step.
+Created roadmap with phase breakdown. Suggest `/plan-phase 1` as next step.

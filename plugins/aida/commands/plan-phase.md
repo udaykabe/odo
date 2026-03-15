@@ -4,7 +4,7 @@ description: Create detailed execution plan for a phase
 allowed-tools: Read, Write, Task, AskUserQuestion
 ---
 
-# /gti:plan-phase [phase-number]
+# /plan-phase [phase-number]
 
 Create a detailed PLAN.md for the specified phase.
 
@@ -61,4 +61,4 @@ Create a detailed PLAN.md for the specified phase.
 
 Created plan at `.planning/phases/XX-phase-name/XX-YY-PLAN.md`
 
-Suggest `/gti:execute` as next step.
+Suggest `/execute` as next step.

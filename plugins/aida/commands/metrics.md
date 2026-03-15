@@ -1,10 +1,10 @@
 ---
 name: metrics
-description: View auto-derived GTI project metrics from git history and planning artifacts
+description: View auto-derived AIDA project metrics from git history and planning artifacts
 allowed-tools: Read, Bash
 ---
 
-# /gti:metrics
+# /metrics
 
 Display project metrics auto-derived from git history and planning artifacts. No manual METRICS.md file required.
 
@@ -83,4 +83,4 @@ Always display the dashboard summary first. Offer to drill into specific phases 
 - All data is derived at query time -- no manual file maintenance needed
 - Phase commit counts use the `feat(XX` grep pattern from commit conventions
 - Test counts depend on SUMMARY files recording them (best-effort)
-- If `.planning/` does not exist, report that the project has not been initialized with GTI
+- If `.planning/` does not exist, report that the project has not been initialized with AIDA

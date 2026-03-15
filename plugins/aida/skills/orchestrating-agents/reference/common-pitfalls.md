@@ -1,6 +1,6 @@
 # Common Pitfalls Reference
 
-Quick-reference for avoiding known integration issues in GTI-managed projects. These are technology-agnostic patterns - see `pitfalls/` directory for technology-specific details.
+Quick-reference for avoiding known integration issues in AIDA-managed projects. These are technology-agnostic patterns - see `pitfalls/` directory for technology-specific details.
 
 ## Database Layer
 

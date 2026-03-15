@@ -1,6 +1,6 @@
 # React Pitfalls
 
-Common issues when using React in GTI-managed projects.
+Common issues when using React in AIDA-managed projects.
 
 ## WebSocket Handler Dependencies
 

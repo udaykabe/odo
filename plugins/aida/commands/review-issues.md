@@ -4,7 +4,7 @@ description: Review deferred issues and decide which to address
 allowed-tools: Read, Write, Task, AskUserQuestion
 ---
 
-# /gti:review-issues
+# /review-issues
 
 Review ISSUES.md and triage deferred work.
 
