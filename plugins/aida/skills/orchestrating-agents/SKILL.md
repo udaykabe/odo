@@ -5,7 +5,7 @@ description: Project planning and execution workflow. Use when user mentions pha
 
 # AIDA Orchestrator
 
-Get To It - Autonomous project execution with human-in-the-loop checkpoints.
+AI Development Agents - Autonomous project execution with human-in-the-loop checkpoints.
 
 ## Overview
 
