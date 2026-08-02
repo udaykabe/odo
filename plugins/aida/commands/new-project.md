@@ -37,8 +37,11 @@ Initialize a new project with AIDA workflow.
    ├── ROADMAP.md      # Empty, ready for phases
    ├── STATE.md        # Initial state
    ├── ISSUES.md       # Empty issues log
+   ├── ESCAPES.md      # Escape catalog (copy from the plugin's templates/escapes.md)
    └── phases/         # Empty phases directory
    ```
+
+   Seed `ESCAPES.md` from `${CLAUDE_PLUGIN_ROOT}/skills/orchestrating-agents/templates/escapes.md` (starts empty; grows from real escapes).
 
 6. **Write PROJECT.md**
    ```markdown
@@ -101,12 +104,17 @@ Initialize a new project with AIDA workflow.
    - Phase: None (project initialized)
    - Status: Ready for roadmap
 
+   Commit-Gate: LOCKED
+   Escape-Pending: no
+
    ## Decisions
    [None yet]
 
    ## Context
    Initialized: [timestamp]
    ```
+
+   The `Commit-Gate` / `Escape-Pending` lines are the machine-readable markers the review-before-commit hook reads. Leave them exactly in this `Key: Value` form (start of line). The executor sets `Commit-Gate: LOCKED` when a segment begins; the reviewer sets `Commit-Gate: APPROVED` on approval. Code commits are blocked unless the marker reads `APPROVED`.
 
 ## Output
 

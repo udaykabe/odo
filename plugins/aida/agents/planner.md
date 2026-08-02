@@ -48,6 +48,24 @@ Create `.planning/phases/XX-phase-name/XX-YY-PLAN.md` with:
 
 **Rule of thumb:** If a task takes <5 minutes of focused work, consolidate it with related tasks.
 
+## Acceptance Criteria & Verification (per task)
+
+Every implementation task must carry **concrete, checkable** acceptance criteria and a **verification command** — not a vague description. This is what makes the watchdog and reviewer able to judge "done" objectively.
+
+For each implementation task, include:
+- **Acceptance criteria:** specific, observable outcomes (e.g., "GET /api/search returns 200 with a `results` array; empty query returns 400"), not "search works".
+- **Verify with:** the exact command and expected result (e.g., `pytest tests/test_search.py -q` → all pass; or a `curl` with the expected response shape).
+- **Observe-before-asserting note** where relevant: if the task touches an external API, DOM, or stream, note that the executor/watchdog must capture the *actual* shape before writing parsers or test selectors (guards `wrong-assumption` / `test-theater`).
+
+```markdown
+### Task 5: Implement document search endpoint
+Acceptance criteria:
+  - Returns 200 + { results: [...], total, hasMore } for a valid query
+  - Returns 400 for empty/missing q
+  - Auth required; 401 without a valid JWT
+Verify with: `pytest tests/test_search.py -q` (all pass) AND `curl -s ".../api/search?q=x" | jq` shows the documented shape
+```
+
 ## API Contract Specification
 
 When planning tasks that involve API endpoints, explicitly specify the contract to prevent frontend/backend mismatches.

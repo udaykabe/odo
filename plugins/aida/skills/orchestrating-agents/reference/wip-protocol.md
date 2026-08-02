@@ -90,15 +90,15 @@ Update WIP.md:
 1. **Created** when first agent is spawned in a phase
 2. **Updated** continuously during execution
 3. **Cleared** when segment completes (content moves to SUMMARY.md)
-4. **Deleted** when phase completes or `/pause-work` runs (content moves to HANDOFF.md)
+4. **Deleted** when phase completes or `/handoff save` runs (content moves to HANDOFF.md)
 
 ## Resumption
 
-`/resume-work` reads WIP.md as a primary source (higher priority than inferring from git):
+`/handoff resume` reads WIP.md as a primary source (higher priority than inferring from git):
 
 | Source | Priority | What It Provides |
 |--------|----------|-----------------|
 | WIP.md | 1 (highest) | Exact task-level position, orchestrator decisions, next action |
-| HANDOFF.md | 2 | Explicit pause context (from /pause-work) |
+| HANDOFF.md | 2 | Explicit pause context (from /handoff save) |
 | Git state | 3 | Last committed work |
 | STATE.md | 4 | Segment-level status |

@@ -12,8 +12,8 @@
     {
       "name": "aida",
       "source": "./plugins/aida",
-      "description": "AI Development Agents (AIDA) - Agentic framework for autonomous project execution with human-in-the-loop checkpoints. Coordinates specialized sub-agents through a research-plan-execute-review pipeline.",
-      "version": "1.0.0",
+      "description": "AI Development Agents (AIDA) - Agentic framework for autonomous project execution with human-in-the-loop checkpoints. Coordinates specialized sub-agents through a research → plan → execute → test (watchdog) → review pipeline with a review-before-commit gate and an escape-catalog learning loop.",
+      "version": "2.0.0",
       "author": {
         "name": "Uday Kabe"
       },

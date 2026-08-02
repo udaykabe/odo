@@ -1,7 +1,7 @@
 {
   "name": "aida",
-  "version": "1.0.0",
-  "description": "AI Development Agents (AIDA) - Agentic framework for autonomous project execution with human-in-the-loop checkpoints. Coordinates specialized sub-agents through a research-plan-execute-review pipeline.",
+  "version": "2.0.0",
+  "description": "AI Development Agents (AIDA) - Agentic framework for autonomous project execution with human-in-the-loop checkpoints. Coordinates specialized sub-agents through a research → plan → execute → test (watchdog) → review pipeline with a review-before-commit gate and an escape-catalog learning loop.",
   "author": {
     "name": "Uday Kabe"
   },
@@ -25,7 +25,7 @@
       {
         "name": "progress",
         "path": "commands/progress.md",
-        "description": "Check project status and route to next action"
+        "description": "Check project status, show metrics, and route to next action"
       },
       {
         "name": "new-project",
@@ -43,14 +43,9 @@
         "description": "Create a phased roadmap from PROJECT.md"
       },
       {
-        "name": "research",
-        "path": "commands/research.md",
-        "description": "Research a topic or phase before planning"
-      },
-      {
         "name": "plan-phase",
         "path": "commands/plan-phase.md",
-        "description": "Create a detailed execution plan for a specific phase"
+        "description": "Research and create a detailed execution plan for a specific phase"
       },
       {
         "name": "execute",
@@ -63,29 +58,14 @@
         "description": "Run full verification suite (type checking, tests, lint)"
       },
       {
-        "name": "pause-work",
-        "path": "commands/pause-work.md",
-        "description": "Create a context handoff document for session breaks"
+        "name": "handoff",
+        "path": "commands/handoff.md",
+        "description": "Save a context handoff when pausing, or resume work from a previous session"
       },
       {
-        "name": "resume-work",
-        "path": "commands/resume-work.md",
-        "description": "Restore context and resume from a previous session"
-      },
-      {
-        "name": "add-issue",
-        "path": "commands/add-issue.md",
-        "description": "Log a deferred issue or enhancement to ISSUES.md"
-      },
-      {
-        "name": "review-issues",
-        "path": "commands/review-issues.md",
-        "description": "Triage deferred issues and decide which to address"
-      },
-      {
-        "name": "metrics",
-        "path": "commands/metrics.md",
-        "description": "View and update project execution metrics"
+        "name": "issues",
+        "path": "commands/issues.md",
+        "description": "Log a deferred issue, or triage the deferred-issue backlog"
       }
     ],
     "agents": [
@@ -102,24 +82,29 @@
       {
         "name": "executor",
         "path": "agents/executor.md",
-        "description": "Executes plan segments autonomously, handling coding, testing, and documentation"
+        "description": "Executes plan segments autonomously; stages work, does not commit"
+      },
+      {
+        "name": "test-writer-fixer",
+        "path": "agents/test-writer-fixer.md",
+        "description": "Independent test watchdog between executor and reviewer; makes tests real, flags product bugs"
       },
       {
         "name": "reviewer",
         "path": "agents/reviewer.md",
-        "description": "Verifies phase completion quality, runs tests, validates outputs against plan"
+        "description": "Verifies completion, audits process, logs escapes, marks APPROVED"
       }
     ],
     "workflows": []
   },
   "dependencies": [],
   "installation": {
-    "postInstall": "echo '\u2705 AIDA plugin installed! 2 skills, 13 commands, 4 agents ready. Restart Claude Code.'"
+    "postInstall": "echo '\u2705 AIDA plugin installed! 2 skills, 9 commands, 5 agents ready. Restart Claude Code.'"
   },
   "statistics": {
     "totalSkills": 2,
-    "totalCommands": 13,
-    "totalAgents": 4,
+    "totalCommands": 9,
+    "totalAgents": 5,
     "totalWorkflows": 0
   }
 }

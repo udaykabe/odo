@@ -21,6 +21,7 @@ Read these to understand current position:
 - `.planning/PROJECT.md` - What we're building
 - `.planning/ROADMAP.md` - Phase breakdown
 - `.planning/STATE.md` - Current position, decisions, issues
+- `.planning/ESCAPES.md` - Escape catalog (known failure patterns; grows over time)
 
 ## Sub-Agents
 
@@ -30,8 +31,11 @@ Spawn via Task tool with dedicated subagent types:
 |-------|---------------|------|---------|
 | researcher | `researcher` | Before planning | Gather context |
 | planner | `planner` | After research | Create PLAN.md |
-| executor | `executor` | After plan approved | Execute segments |
-| reviewer | `reviewer` | After execution | Verify completion |
+| executor | `executor` | After plan approved | Execute segments (stages work, does NOT commit) |
+| test-writer-fixer | `test-writer-fixer` | After execution, before review | Independent watchdog: makes tests real, flags product bugs |
+| reviewer | `reviewer` | After watchdog | Verify + spec/quality + audit; marks `APPROVED` |
+
+**Canonical pipeline:** `researcher → planner → (approval) → executor → test-writer-fixer → reviewer → (commit on APPROVE)`
 
 ### Spawning Pattern
 
@@ -88,9 +92,17 @@ Return APPROVE, NEEDS_WORK, or BLOCKED.
    - Phase needs research? → Spawn researcher
    - Phase needs plan? → Spawn planner
    - Plan ready? → Get approval, spawn executor
-   - Execution done? → Spawn reviewer
-   - Review passed? → Update STATE, next phase
+   - Execution done (staged, uncommitted)? → Spawn test-writer-fixer (watchdog)
+   - Watchdog found product bugs? → Spawn executor to fix, then re-run watchdog
+   - Watchdog clean? → Spawn reviewer
+   - Reviewer NEEDS_WORK? → Spawn executor with fixes, re-review
+   - Reviewer APPROVE? → Commit the approved unit (gate now unlocked), update STATE, next phase
+   - Phase complete? → Run retrospective (see Continuous Improvement)
 ```
+
+### Commit Timing (important)
+
+Work is **committed only after the reviewer marks `APPROVED`** in STATE.md. The executor and watchdog stage their work but never commit. This is enforced by the review-before-commit hook. The commit — done by you, the orchestrator, once the gate is unlocked — bundles code + tests + summaries + STATE.md into one reviewed unit.
 
 ## Checkpoint Handling
 
@@ -218,6 +230,31 @@ See `reference/workflow-principles.md` for battle-tested principles from real pr
 5. **State file staleness causes duplicate work** -- Always re-read before modifying
 6. **Integration points are where bugs live** -- Pay special attention to system boundaries
 7. **Verification must be multi-layered** -- Each layer catches different bug classes
+
+## Continuous Improvement (Escapes + Retrospective)
+
+AIDA gets smarter across phases through a learning loop. This is not optional overhead — it is the mechanism that prevents the same bug class from recurring.
+
+### The Escape Catalog (`.planning/ESCAPES.md`)
+
+An **escape** is any defect or process failure that got past the pipeline: a bug the reviewer approved, a fix you (the orchestrator) had to make *after* review, or a skipped methodology step. See `templates/escapes.md` for the format and the 7 escape classes.
+
+- The **reviewer** drafts candidate escape entries during its audit pass.
+- **You** confirm them and, where a check has proven reliable, mark a `Hook candidate` so it can be promoted from a checklist item to an enforced hook.
+- **Never delete entries.** The catalog only grows.
+
+> Trigger rule: if you make ANY code fix *after* a phase was reviewed/approved, that is an escape by definition. Log it before moving on.
+
+### Phase Retrospective
+
+After a phase completes (all segments approved, verification passes), run a short retrospective before starting the next phase:
+
+1. **Metrics** — segments total, segments approved cleanly (no post-review fixes), clean-pass rate, new escapes this phase.
+2. **Patterns** — which escape classes recur? Is the clean-pass rate improving across phases? Which checks are being rubber-stamped?
+3. **Evolution** — promote proven checklist items to hooks; retire steps that add overhead without catching anything; refine escape entries.
+4. Record the summary in `.planning/STATE.md` (or the metrics section) so trends are visible over time.
+
+Keep it lightweight — a few sentences and the metrics line. The value is the trend, not the ceremony.
 
 ## Resources
 

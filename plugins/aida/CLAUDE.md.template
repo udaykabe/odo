@@ -20,7 +20,8 @@ This check is lightweight (2 file reads) and ensures work is never silently lost
 ### The Rule
 
 > When ANY implementation work is needed, spawn a subagent. No exceptions.
-> When planning implementation work, always use the **Mandatory AIDA Sequence** below: researcher -> planner -> (approval) -> executor -> reviewer.
+> When planning implementation work, always use the **Mandatory AIDA Sequence** below:
+    researcher -> planner -> (approval) -> executor -> test-writer-fixer -> reviewer.
 
 ### What Triggers Subagent Spawning
 
@@ -53,31 +54,32 @@ RIGHT: Spawn executor with the task description, review summary, report result
 
 | Command | When |
 |---------|------|
-| `/progress` | Check status, route to next action |
-| `/plan-phase N` | Create detailed plan for phase |
+| `/progress` | Check status + metrics, route to next action |
+| `/plan-phase N` | Research + create detailed plan for phase |
 | `/execute` | Run current approved plan |
-| `/pause-work` | Create handoff for later |
-| `/resume-work` | Continue from handoff |
-| `/add-issue` | Log deferred issue |
+| `/verify` | Run the full verification suite |
+| `/handoff [save\|resume]` | Pause with a handoff, or resume a prior session |
+| `/issues [add\|review]` | Log a deferred issue, or triage the backlog |
 
 ### Subagents
 
 | Agent | Purpose |
 |-------|---------|
 | researcher | Gather context before planning |
-| planner | Create PLAN.md |
-| executor | Execute plan segments, fix bugs |
-| reviewer | Verify completion, run tests |
+| planner | Create PLAN.md (with acceptance criteria + verify commands) |
+| executor | Execute plan segments; stages work, does NOT commit |
+| test-writer-fixer | Independent watchdog: makes tests real, flags product bugs |
+| reviewer | Verify + audit, log escapes, mark APPROVED |
 
 ### Mandatory AIDA Sequence
 
 > Every implementation task MUST follow this sequence. No exceptions.
 
 ```
-researcher -> planner -> (user approval) -> commit plan -> executor -> reviewer
+researcher -> planner -> (user approval) -> commit plan -> executor -> test-writer-fixer -> reviewer -> (commit on APPROVE)
 ```
 
-After user approval and before spawning the first executor, the orchestrator MUST commit PLAN.md and any planning artifacts. Executors write per-segment `SUMMARY-XX.Y.md` files to the phase directory and commit them with their code.
+After user approval and before spawning the first executor, the orchestrator commits PLAN.md and planning artifacts. **The executor and watchdog STAGE their work but do NOT commit** — the commit happens only after the reviewer marks `APPROVED` (enforced by the review-before-commit hook). This makes the reviewed unit equal the committed unit.
 
 ### State Files
 
@@ -87,12 +89,24 @@ After user approval and before spawning the first executor, the orchestrator MUS
 ├── ROADMAP.md    # Phase breakdown
 ├── STATE.md      # Current position (READ THIS FIRST)
 ├── ISSUES.md     # Deferred work
+├── ESCAPES.md    # Escape catalog — known failure patterns (grows over time)
 ├── WIP.md        # Work-in-progress (auto-updated during execution)
 └── phases/XX-name/
-    ├── PLAN.md          # Phase plan (committed before execution)
-    ├── SUMMARY-XX.Y.md  # Per-segment summaries (written by executor)
-    └── SUMMARY.md       # Phase summary (written by reviewer)
+    ├── PLAN.md            # Phase plan (committed before execution)
+    ├── SUMMARY-XX.Y.md    # Per-segment summaries (written by executor)
+    ├── WATCHDOG-XX.Y.md   # Watchdog test findings (written by test-writer-fixer)
+    └── SUMMARY.md         # Phase summary (written by reviewer)
 ```
+
+### Enforcement (hooks)
+
+AIDA ships hooks that enforce the pipeline — they are not advisory:
+
+- **Review-before-commit gate** — a `git commit` that touches code is **blocked** unless `STATE.md` contains `Commit-Gate: APPROVED`. The reviewer sets this on APPROVE; the executor resets it to `LOCKED` when a segment starts. Commits that only touch `.planning/` files (plans, state) are always allowed.
+- **Escape-before-commit gate** — if `STATE.md` has `Escape-Pending: yes` (a post-review fix was made), commits are blocked until the escape is logged in `ESCAPES.md` and the flag cleared.
+- **Session-start / prompt-context / stop** — surface WIP on resume, inject current position each turn, and remind you to checkpoint uncommitted work.
+
+Keep the `Commit-Gate:` and `Escape-Pending:` lines in `STATE.md` in `Key: Value` form at the start of a line — the hooks match them literally. The gate is **opt-in**: it only enforces once a `Commit-Gate:` line is present (a project without it commits normally).
 
 ---
 
@@ -149,7 +163,9 @@ Spawn reviewer to verify:
 - [ ] PLAN.md committed before execution began
 - [ ] Complete all PLAN.md tasks
 - [ ] Per-segment `SUMMARY-XX.Y.md` files exist for each segment
+- [ ] Watchdog ran (`WATCHDOG-XX.Y.md`); any product bugs it flagged were fixed
 - [ ] Pass all configured verification commands
-- [ ] Commit with: `feat(XX-YY): summary`
+- [ ] Escapes logged in `ESCAPES.md` if any post-review fixes were needed
+- [ ] Reviewer marked `APPROVED`, THEN commit with: `feat(XX-YY): summary`
 - [ ] Create phase `SUMMARY.md`
-- [ ] Update ROADMAP.md
+- [ ] Update ROADMAP.md and run the phase retrospective

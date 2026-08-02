@@ -28,7 +28,7 @@ You receive:
     - Files created/modified (with paths)
     - Deviations from plan
     - Issues discovered
-  - **This file must be committed** alongside the code in the segment commit
+  - **Leave this file staged** alongside the code — do NOT commit (see Constraints)
 
 ## Deviation Rules
 
@@ -99,7 +99,7 @@ Options:
    - Don't overwrite "Current Position" unless specifically updating phase status
    - Preserve existing information
 
-3. **Check for conflicts before committing**
+3. **Check for conflicts before staging**
    ```bash
    git diff .planning/STATE.md  # Verify changes are what you expect
    ```
@@ -110,6 +110,8 @@ Options:
    - Change segment from `PENDING` → `IN_PROGRESS` when starting
    - Change segment from `IN_PROGRESS` → `COMPLETE` when done
    - Use `BLOCKED` if returning with blockers
+
+   **When you START a segment, set `Commit-Gate: LOCKED` in STATE.md.** This re-locks the review gate so nothing from this new segment can be committed until the reviewer approves it (even if a previous segment was `APPROVED`). If you are fixing something that a prior review had already approved (a post-review fix), also set `Escape-Pending: yes` — the reviewer will log the escape and clear it.
 
 2. **Update phase status** if completing final segment:
    - Change phase from `PLANNED` → `COMPLETE` in Phase Progress table
@@ -149,8 +151,16 @@ Before marking a segment complete, verify these common integration points:
 
 ### API Integration
 - [ ] **Response format**: Frontend correctly handles backend's wrapper structure
+- [ ] **Observed, not assumed**: `curl` the actual endpoint and confirm the real response shape/field names before writing parsers — no unsafe casts at external-data boundaries
 - [ ] **Query parameters**: Handle both string and array forms
 - [ ] **Error status codes**: 404 for not found, 500 only for server errors
+
+### Auth changes (if any)
+- [ ] **Systematic fetch audit**: After adding/changing auth, `grep -rn 'fetch(' <frontend src>` and verify EVERY call sends the auth header — direct `fetch()` calls outside the API client are the most commonly missed
+
+### Streaming / SSE parsers (if any)
+- [ ] **Type-guarded**: Every `data` assignment is guarded (`typeof`/`Array.isArray`) — SSE protocols often send sentinel values (booleans, strings) that differ from the normal payload
+- [ ] **Tested against the real stream**, not an assumed happy-path object shape
 
 ### Frontend Integration
 - [ ] **Authenticated downloads**: Use fetch+blob, not direct URL access
@@ -173,4 +183,4 @@ Before marking a segment complete, verify these common integration points:
 - Stop at checkpoints
 - Document all deviations
 - **Write `SUMMARY-XX.Y.md`** to the phase directory before returning
-- Commit work (code + summary + STATE.md) before returning
+- **Stage** your work (`git add` code + summary + STATE.md) but **do NOT commit.** The watchdog (test-writer-fixer) runs next, then the reviewer; the commit happens only after reviewer `APPROVE` (enforced by the review-before-commit hook). Committing here would ship un-reviewed work.
