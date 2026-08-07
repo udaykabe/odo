@@ -66,8 +66,8 @@ The `.planning/` directory is created per-project at runtime (not shipped with t
   codebase/                          # 7 analysis documents (from map-codebase)
   phases/XX-name/
     XX-YY-PLAN.md                    # Execution plan for segment YY
-    SUMMARY-XX.Y.md                  # Post-execution summary (executor)
-    WATCHDOG-XX.Y.md                 # Test findings (test-writer-fixer)
+    SUMMARY-XX.Y.md                  # Post-execution summary (executor returns, orchestrator writes)
+    WATCHDOG-XX.Y.md                 # Test findings (test-writer-fixer returns, orchestrator writes)
 ```
 
 ## How It Works

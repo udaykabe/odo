@@ -57,20 +57,47 @@ Execute the currently approved plan using sub-agents.
    | human-action | Describe task, wait for confirmation |
 
 6. **On segment completion**
-   - Read executor's status
-   - If COMPLETE → Continue
-   - If BLOCKED → Handle blocker
-   - If NEEDS_DECISION → Present to user
+   - Read the executor's returned status and summary text
+   - **Persist the summary yourself** — subagents cannot write report files, so the
+     executor returns its summary as text. Write that text to
+     `.planning/phases/XX-name/SUMMARY-XX.Y.md`, then `git add` it (planning-only,
+     always allowed by the commit gate).
+   - If COMPLETE → continue to the watchdog
+   - If BLOCKED → handle blocker
+   - If NEEDS_DECISION → present to user
 
-7. **After all segments**
-   - Spawn `reviewer` for verification
-   - If review passes → Create SUMMARY.md
-   - If review fails → Present issues, decide fix
+7. **Watchdog (test-writer-fixer)**
+   - Spawn `test-writer-fixer` with the segment range and the `SUMMARY-XX.Y.md` path
+   - **Persist its findings yourself** — write the watchdog's returned report to
+     `.planning/phases/XX-name/WATCHDOG-XX.Y.md`, then `git add` it
+   - If it reports real product bugs → record them in STATE.md/ISSUES.md, spawn the
+     executor to fix, then re-run the watchdog
+   - If `WATCHDOG_CLEAN` → continue to review
 
-8. **Update STATE.md**
+8. **After all segments pass the watchdog**
+   - Spawn `reviewer` for verification (it reads the persisted SUMMARY/WATCHDOG files)
+   - **Persist the review yourself** — write the reviewer's returned report to the
+     phase `SUMMARY.md`, then `git add` it
+   - Reviewer **APPROVE** (it sets `Commit-Gate: APPROVED` in STATE.md) → commit the
+     approved unit with `feat(XX-YY): summary`. The commit gate is a *PreToolUse* hook,
+     so `git add` must be a separate command from `git commit`, never chained.
+   - Reviewer **NEEDS_WORK / BLOCKED** → present issues, spawn the executor with fixes,
+     re-review
+
+9. **Update STATE.md**
    - Phase status: Complete
    - Record decisions made
    - Update position to next phase
+
+## Reports are returned, not written by subagents
+
+The executor, watchdog, and reviewer all run as subagents, and the harness blocks
+subagents from writing report/summary files (their final message *is* their return
+value). So each returns its report as text and **you (the orchestrator) write it to
+disk**: `SUMMARY-XX.Y.md` from the executor, `WATCHDOG-XX.Y.md` from the watchdog, and
+the phase `SUMMARY.md` from the reviewer. Subagents still write their own *work
+products* (code, tests) and edit *state files* (STATE.md, ESCAPES.md) directly — only
+report files route through you.
 
 ## Output
 

@@ -93,10 +93,12 @@ After user approval and before spawning the first executor, the orchestrator com
 ├── WIP.md        # Work-in-progress (auto-updated during execution)
 └── phases/XX-name/
     ├── PLAN.md            # Phase plan (committed before execution)
-    ├── SUMMARY-XX.Y.md    # Per-segment summaries (written by executor)
-    ├── WATCHDOG-XX.Y.md   # Watchdog test findings (written by test-writer-fixer)
-    └── SUMMARY.md         # Phase summary (written by reviewer)
+    ├── SUMMARY-XX.Y.md    # Per-segment summaries (returned by executor, written by orchestrator)
+    ├── WATCHDOG-XX.Y.md   # Watchdog test findings (returned by test-writer-fixer, written by orchestrator)
+    └── SUMMARY.md         # Phase summary (returned by reviewer, written by orchestrator)
 ```
+
+**Reports are returned as text, not written by subagents.** The executor, watchdog, and reviewer run as subagents, and the harness blocks subagents from writing report files — their final message *is* their return value. Each returns its report as text and the **orchestrator** persists it to the paths above. Subagents still write their own work products (code, tests) and edit state files (STATE.md, ESCAPES.md) directly; only the report files route through the orchestrator.
 
 ### Enforcement (hooks)
 
@@ -167,5 +169,5 @@ Spawn reviewer to verify:
 - [ ] Pass all configured verification commands
 - [ ] Escapes logged in `ESCAPES.md` if any post-review fixes were needed
 - [ ] Reviewer marked `APPROVED`, THEN commit with: `feat(XX-YY): summary`
-- [ ] Create phase `SUMMARY.md`
+- [ ] Persist the reviewer's returned report as the phase `SUMMARY.md`
 - [ ] Update ROADMAP.md and run the phase retrospective

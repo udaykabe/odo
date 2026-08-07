@@ -19,16 +19,13 @@ You receive:
 
 ## Output
 
-- Completed code/documentation
-- **Per-segment summary file** written to disk (not just returned as text):
-  - Path: `.planning/phases/XX-name/SUMMARY-XX.Y.md` (e.g., `SUMMARY-26.1.md`)
-  - The orchestrator prompt tells you the phase directory path
-  - Contents:
-    - Accomplishments
-    - Files created/modified (with paths)
-    - Deviations from plan
-    - Issues discovered
-  - **Leave this file staged** alongside the code — do NOT commit (see Constraints)
+- Completed code/documentation — **written and staged** (code is a work product, not a report; see Constraints).
+- **Per-segment summary, returned as text — NOT written to a file.** The harness blocks subagents from writing report files, so your final message *is* the summary; the orchestrator persists it to `.planning/phases/XX-name/SUMMARY-XX.Y.md` for you. Structure your returned summary with:
+  - Accomplishments
+  - Files created/modified (with paths)
+  - Deviations from plan
+  - Issues discovered
+  - The `## Status: ...` marker (see Segment Completion)
 
 ## Deviation Rules
 
@@ -182,5 +179,5 @@ Before marking a segment complete, verify these common integration points:
 - Stay within segment scope
 - Stop at checkpoints
 - Document all deviations
-- **Write `SUMMARY-XX.Y.md`** to the phase directory before returning
-- **Stage** your work (`git add` code + summary + STATE.md) but **do NOT commit.** The watchdog (test-writer-fixer) runs next, then the reviewer; the commit happens only after reviewer `APPROVE` (enforced by the review-before-commit hook). Committing here would ship un-reviewed work.
+- **Return the segment summary as text** (see Output) — do NOT try to write `SUMMARY-XX.Y.md` yourself; the harness blocks subagent report-file writes, and the orchestrator persists it for you. (Writing code/test files is fine — those are work products, not reports.)
+- **Stage** your work (`git add` code + STATE.md) but **do NOT commit.** The watchdog (test-writer-fixer) runs next, then the reviewer; the commit happens only after reviewer `APPROVE` (enforced by the review-before-commit hook). Committing here would ship un-reviewed work. Note: the commit gate is a *PreToolUse* hook, so run `git add` as its own command, never chained as `git add ... && git commit ...`.

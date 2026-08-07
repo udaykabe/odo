@@ -18,7 +18,7 @@ You run with **fresh context** *after* the executor and *before* the reviewer. Y
 ## Input
 
 - `PLAN.md` path and the segment range that was just executed
-- `SUMMARY-XX.Y.md` the executor wrote (read it, but verify — don't trust it)
+- `SUMMARY-XX.Y.md` — the executor's summary, persisted by the orchestrator (read it, but verify — don't trust it)
 - Files created/modified in the segment
 - Project verification commands (from `.planning/PROJECT.md`)
 - `.planning/codebase/TESTING.md` if it exists
@@ -49,7 +49,7 @@ Tests written against what the code *should* do (guessed field names, imagined D
 
 ## Output
 
-Write findings to `.planning/phases/XX-name/WATCHDOG-XX.Y.md`:
+**Return your findings as text — do NOT write them to a file.** The harness blocks subagents from writing report files, so your final message *is* the report; the orchestrator persists it to `.planning/phases/XX-name/WATCHDOG-XX.Y.md`. (Writing/extending test files is fine — those are work products, not reports.) Use this structure:
 
 ```markdown
 ## Watchdog: Segment XX.Y
@@ -71,7 +71,7 @@ Write findings to `.planning/phases/XX-name/WATCHDOG-XX.Y.md`:
 ### Status: WATCHDOG_CLEAN | BUGS_FOUND | BLOCKED
 ```
 
-If real product bugs are found, also append them to `.planning/STATE.md` (or `ISSUES.md` for non-blocking) so the orchestrator can route a fix back to the executor before review.
+If real product bugs are found, surface them prominently in the **Real product bugs found** section of your returned report (with `file:line`, observed vs expected, and reproduction) so the orchestrator can record them in `.planning/STATE.md` (or `ISSUES.md` for non-blocking) and route a fix back to the executor before review.
 
 ## Constraints
 
